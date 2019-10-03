@@ -19,7 +19,7 @@ Brief rundown of how to "git" (haha) the files from the repository:
         4. Run:
                 git init
         5. Run:
-                git clone https://github.com/burkerking72/DB
+                git clone https://github.com/ManuelSouza1996/SearchTheWord
         6. You now have the "master" version of the files. You can edit these files in any way, and the files on github will not be           affected. This allows you to create your own branch, that you can later "push" to github to update the files on the repository.
         7. When you are ready to add files to the repository you must first "add" them.
                 git add "the file you want to add"
