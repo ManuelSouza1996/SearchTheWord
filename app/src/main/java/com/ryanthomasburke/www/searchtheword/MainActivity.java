@@ -1,4 +1,4 @@
-package com.group4.searchtheword;
+package com.ryanthomasburke.www.searchtheword;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,14 +7,21 @@ import android.os.Bundle;
 import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
 
-    public void goToScreen1(View v) {
-        Intent intent = new Intent ( this, Screen1Activity.class);
-        this.startActivity(intent);
+    public void goToDifficulty(View view){
+        try{
+            Intent intent = new Intent(this, DifficultyActivity.class);
+            System.out.println(intent.toString());
+            this.startActivity(intent);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

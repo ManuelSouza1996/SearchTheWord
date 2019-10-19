@@ -1,4 +1,4 @@
-package com.group4.searchtheword;
+package com.ryanthomasburke.www.searchtheword;
 
 import org.junit.Test;
 

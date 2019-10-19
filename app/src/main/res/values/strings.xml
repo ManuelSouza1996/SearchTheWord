@@ -1,11 +1,15 @@
 <resources>
     <string name="app_name">SearchTheWord</string>
     <string name="screen_2">Screen 2</string>
-    <string name="back">BACK</string>
     <string name="search_the_word">Search the Word</string>
-    <string name="start_game">Start Game</string>
     <string name="home">Home</string>
     <string name="easy">Easy</string>
     <string name="medium">Medium</string>
     <string name="hard">Hard</string>
+    <string name="back">BACK</string>
+    <string name="start_game">Play Game</string>
+    <string name="high_scores">High Scores</string>
+    <string name="instructions">Instructions</string>
+    <string name="options">Options</string>
+    <string name="play_game">Play Game</string>
 </resources>
