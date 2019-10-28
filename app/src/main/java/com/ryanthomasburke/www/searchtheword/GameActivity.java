@@ -2,6 +2,7 @@ package com.ryanthomasburke.www.searchtheword;
 
 
 import android.os.Bundle;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.ryanthomasburke.www.searchtheword.Utility.Word;
@@ -24,7 +25,8 @@ public class GameActivity extends AppCompatActivity {
     private int numWords;
     private int pointsPerWord;
     private int totalScore;
-    private ArrayList<String[]> wordList = new ArrayList<>();;
+    private TextView wordBank;
+    private ArrayList<String[]> wordList = new ArrayList<>();
 
 
 
@@ -55,9 +57,6 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         wordGrid = findViewById(R.id.wordsGrid);
-
-
-
 
         //currentLevel = 1;
         //difficulty = 1.0;
@@ -229,6 +228,8 @@ public class GameActivity extends AppCompatActivity {
                     counter++;
                     if (counter == wordIndex[i]) {
                         tmpWordList[i] = currentLine.toUpperCase();
+                        wordBank = findViewById(R.id.wordBank);
+                        wordBank.append(currentLine.toUpperCase() + "\n");
                         String[] strAdd =new String[6];
 
                         strAdd[0] = currentLine.toUpperCase();
