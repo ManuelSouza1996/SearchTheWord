@@ -241,6 +241,7 @@ public class WordGrid extends View {
         this.words = words;
     }
 
+
     private String getWord(Cell fromCell, Cell toCell) {
         String word = "";
         if(fromCell.getRow() == toCell.getRow()) {
@@ -269,15 +270,34 @@ public class WordGrid extends View {
 
     private void highlightIfString(String string) {
         for(Word word : words) {
-            if(word.getWord().equals(string)) {
+            if((word.getWord().equals(string))||(word.getWord().equals(reverseString(string)))) {
                 if(onWordSearchedListener != null) {
-                    onWordSearchedListener.wordFound(string);
+                    if (word.getWord().equals(string)) {
+                        onWordSearchedListener.wordFound(string);
+                    }
+                    else if ( word.getWord().equals(reverseString(string))){
+                        onWordSearchedListener.wordFound(reverseString(string));
+                    }
                 }
                 word.setHighlighted(true);
                 wordsSearched++;
                 break;
             }
         }
+    }
+
+    /*Function Name: Reverse String
+     *Written By: Jesse Vang
+     * Purpose: reverse String.
+     */
+    //reverse function
+    private static String reverseString(String strReverse) {
+        char[] tmpS = strReverse.toCharArray();
+        String newString = "";
+        for (int i =tmpS.length-1; i >= 0; i --) {
+            newString += tmpS[i];
+        }
+        return newString;
     }
 
 }

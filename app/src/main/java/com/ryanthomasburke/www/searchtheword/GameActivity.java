@@ -27,11 +27,7 @@ public class GameActivity extends AppCompatActivity {
     private int totalScore;
     private TextView wordBank;
     private ArrayList<String[]> wordList = new ArrayList<>();
-
-
-
-
-   private char[][] letterGrid;
+    private char[][] letterGrid;
 
    /* private char[][] letterGrid = {
             //0   1   2   3   4   5   6   7   8   9
@@ -49,56 +45,26 @@ public class GameActivity extends AppCompatActivity {
 
     */
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         wordGrid = findViewById(R.id.wordsGrid);
-
-        //currentLevel = 1;
-        //difficulty = 1.0;
-        //numWords =5 + Math.min((int)Math.ceil(difficulty*currentLevel),10);
-        //pointsPerWord = 100 + (int)(10*difficulty);
-        //totalScore = 0;
-        numWords = 10; //If number of word changes, must alter wordGrid.set also or game crashes.
+        currentLevel = 1;
+        difficulty = 1.0;
+        numWords =14 + Math.min((int)Math.ceil(difficulty*currentLevel),5);  //currently do not go above 10 words or might loop forever trying to fill a grid.
+        pointsPerWord = 5 + (int)(10*difficulty);
+        totalScore = 0;
         //currentTimer = Math.max(((int)(90/difficulty)) - (int)(currentLevel*difficulty), 10);
-
-
 
        String[] words = getWords(numWords);
        letterGrid = makeLetterGrid(words);
-
+       Word[] newWordList = new Word[numWords];
+       for (int i = 0; i < words.length; i ++){
+           newWordList[i] = new Word(wordList.get(i)[0],false,Integer.valueOf(wordList.get(i)[2]),Integer.valueOf(wordList.get(i)[3]), Integer.valueOf(wordList.get(i)[4]),Integer.valueOf(wordList.get(i)[5]));
+       }
+       wordGrid.setWords(newWordList);
        wordGrid.setLetters(letterGrid);
-
-        //Sets 10 words, sets same 10 words in Reverse. Must alter code below if numWords is also changed or game Crashes
-       wordGrid.setWords(
-                new Word(wordList.get(0)[0],false,Integer.valueOf(wordList.get(0)[2]),Integer.valueOf(wordList.get(0)[3]), Integer.valueOf(wordList.get(0)[4]),Integer.valueOf(wordList.get(0)[5])),
-                new Word(wordList.get(1)[0],false,Integer.valueOf(wordList.get(1)[2]),Integer.valueOf(wordList.get(1)[3]), Integer.valueOf(wordList.get(1)[4]),Integer.valueOf(wordList.get(1)[5])),
-                new Word(wordList.get(2)[0],false,Integer.valueOf(wordList.get(2)[2]),Integer.valueOf(wordList.get(2)[3]), Integer.valueOf(wordList.get(2)[4]),Integer.valueOf(wordList.get(2)[5])),
-                new Word(wordList.get(3)[0],false,Integer.valueOf(wordList.get(3)[2]),Integer.valueOf(wordList.get(3)[3]), Integer.valueOf(wordList.get(3)[4]),Integer.valueOf(wordList.get(3)[5])),
-                new Word(wordList.get(4)[0],false,Integer.valueOf(wordList.get(4)[2]),Integer.valueOf(wordList.get(4)[3]), Integer.valueOf(wordList.get(4)[4]),Integer.valueOf(wordList.get(4)[5])),
-                new Word(wordList.get(5)[0],false,Integer.valueOf(wordList.get(5)[2]),Integer.valueOf(wordList.get(5)[3]), Integer.valueOf(wordList.get(5)[4]),Integer.valueOf(wordList.get(5)[5])),
-                new Word(wordList.get(6)[0],false,Integer.valueOf(wordList.get(6)[2]),Integer.valueOf(wordList.get(6)[3]), Integer.valueOf(wordList.get(6)[4]),Integer.valueOf(wordList.get(6)[5])),
-                new Word(wordList.get(7)[0],false,Integer.valueOf(wordList.get(7)[2]),Integer.valueOf(wordList.get(7)[3]), Integer.valueOf(wordList.get(7)[4]),Integer.valueOf(wordList.get(7)[5])),
-                new Word(wordList.get(8)[0],false,Integer.valueOf(wordList.get(8)[2]),Integer.valueOf(wordList.get(8)[3]), Integer.valueOf(wordList.get(8)[4]),Integer.valueOf(wordList.get(8)[5])),
-                new Word(wordList.get(9)[0],false,Integer.valueOf(wordList.get(9)[2]),Integer.valueOf(wordList.get(9)[3]), Integer.valueOf(wordList.get(9)[4]),Integer.valueOf(wordList.get(9)[5])),
-                //Reverse Ones Starts Below so we can highlight word behind
-                new Word(reverseString(wordList.get(0)[0]),false,Integer.valueOf(wordList.get(0)[2]),Integer.valueOf(wordList.get(0)[3]), Integer.valueOf(wordList.get(0)[4]),Integer.valueOf(wordList.get(0)[5])),
-                new Word(reverseString(wordList.get(1)[0]),false,Integer.valueOf(wordList.get(1)[2]),Integer.valueOf(wordList.get(1)[3]), Integer.valueOf(wordList.get(1)[4]),Integer.valueOf(wordList.get(1)[5])),
-                new Word(reverseString(wordList.get(2)[0]),false,Integer.valueOf(wordList.get(2)[2]),Integer.valueOf(wordList.get(2)[3]), Integer.valueOf(wordList.get(2)[4]),Integer.valueOf(wordList.get(2)[5])),
-                new Word(reverseString(wordList.get(3)[0]),false,Integer.valueOf(wordList.get(3)[2]),Integer.valueOf(wordList.get(3)[3]), Integer.valueOf(wordList.get(3)[4]),Integer.valueOf(wordList.get(3)[5])),
-                new Word(reverseString(wordList.get(4)[0]),false,Integer.valueOf(wordList.get(4)[2]),Integer.valueOf(wordList.get(4)[3]), Integer.valueOf(wordList.get(4)[4]),Integer.valueOf(wordList.get(4)[5])),
-                new Word(reverseString(wordList.get(5)[0]),false,Integer.valueOf(wordList.get(5)[2]),Integer.valueOf(wordList.get(5)[3]), Integer.valueOf(wordList.get(5)[4]),Integer.valueOf(wordList.get(5)[5])),
-                new Word(reverseString(wordList.get(6)[0]),false,Integer.valueOf(wordList.get(6)[2]),Integer.valueOf(wordList.get(6)[3]), Integer.valueOf(wordList.get(6)[4]),Integer.valueOf(wordList.get(6)[5])),
-                new Word(reverseString(wordList.get(7)[0]),false,Integer.valueOf(wordList.get(7)[2]),Integer.valueOf(wordList.get(7)[3]), Integer.valueOf(wordList.get(7)[4]),Integer.valueOf(wordList.get(7)[5])),
-                new Word(reverseString(wordList.get(8)[0]),false,Integer.valueOf(wordList.get(8)[2]),Integer.valueOf(wordList.get(8)[3]), Integer.valueOf(wordList.get(8)[4]),Integer.valueOf(wordList.get(8)[5])),
-                new Word(reverseString(wordList.get(9)[0]),false,Integer.valueOf(wordList.get(9)[2]),Integer.valueOf(wordList.get(9)[3]), Integer.valueOf(wordList.get(9)[4]),Integer.valueOf(wordList.get(9)[5]))
-
-        );
-
 
        for (int i =0; i < wordList.size(); i++){
            for(int j = 0; j < wordList.get(i).length; j++){
@@ -107,10 +73,6 @@ public class GameActivity extends AppCompatActivity {
            System.out.println("");
 
        }
-
-
-
-
 /*
         wordGrid.setWords(
                 new Word("ANTONIA", false, 0, 0, 0, 6),
@@ -291,6 +253,7 @@ public class GameActivity extends AppCompatActivity {
      */
     private char[][] makeLetterGrid(String[] strWordlist){
 
+        int placementAttempts =0;
         //1. Creates a grid( 2-d char array with empty characters)
         char[][] tmpLetterGrid = new char[10][10];
         for (int i =0; i < tmpLetterGrid.length;i++){
@@ -304,6 +267,7 @@ public class GameActivity extends AppCompatActivity {
         for(int i =0; i < strWordlist.length;i++) {
             int row=0,column=0;
             int wordlength = strWordlist[i].length();
+
             boolean chosenSpot = false;
             ArrayList<String> validChoice = new ArrayList<String>();
 
@@ -578,17 +542,47 @@ public class GameActivity extends AppCompatActivity {
                     default:
                         //6. Repeats steps 2 to 5 until all words from list has been placed on grid.
                         //This forces to recheck a new spot since the word was not place in gird.
-                        i--;
+                        // if over 100,000 attempts to put words on list fails, reset puzzle and try again.
+                        if (placementAttempts <100) {
+                            i--;
+                            placementAttempts++;
+                        }
+                        else {
+                            placementAttempts = 0;
+                            i =0;
+                            for (int j =0; j < tmpLetterGrid.length;j++){
+                                for (int k = 0; k < tmpLetterGrid[j].length;k++) {
+                                    tmpLetterGrid[j][k] = ' ';
+                                }
+
+                            }
+                        }
                 }
             }
-            else {i--;}
+            else {
+                // if over 100,000 attempts to put words on list fails, reset puzzle and try again.
+                if (placementAttempts <100) {
+                    i--;
+                    placementAttempts++;
+                }
+                else {
+                    placementAttempts = 0;
+                    i =0;
+                    for (int j =0; j < tmpLetterGrid.length;j++){
+                        for (int k = 0; k < tmpLetterGrid[j].length;k++) {
+                            tmpLetterGrid[j][k] = ' ';
+                        }
+
+                    }
+                }
+
+            }
 
 
 
 
 
         }
-
 
         //7. Fill in remaining Grid spots with random letter
         char[] letter = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
@@ -610,17 +604,5 @@ public class GameActivity extends AppCompatActivity {
 
     }
 
-    /*Function Name: Reverse String
-     *Written By: Jesse Vang
-     * Purpose: reverse String.
-     */
-    //reverse function
-    private static String reverseString(String strReverse) {
-        char[] tmpS = strReverse.toCharArray();
-        String newString = "";
-        for (int i =tmpS.length-1; i >= 0; i --) {
-            newString += tmpS[i];
-        }
-        return newString;
-    }
+
 }
