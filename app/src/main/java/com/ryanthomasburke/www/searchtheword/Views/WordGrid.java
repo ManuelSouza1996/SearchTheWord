@@ -12,6 +12,8 @@ import androidx.core.view.MotionEventCompat;
 
 import com.ryanthomasburke.www.searchtheword.Utility.Word;
 
+import java.util.Random;
+
 public class WordGrid extends View {
 
     private int rows, columns, width, height, rectWH;
@@ -57,6 +59,11 @@ public class WordGrid extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
+
+        /*TODO: CREATE RANDOM HIGHLIGHT COLOR
+        Random rnd = new Random();
+        highlighter.setARGB(50, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
+         */
 
         if(rows <= 0 || columns <= 0) {
             return;
@@ -223,7 +230,7 @@ public class WordGrid extends View {
     }
 
     public interface OnWordSearchedListener {
-        public void wordFound(String word);
+        void wordFound(String word);
     }
 
     public void setOnWordSearchedListener(OnWordSearchedListener onWordSearchedListener) {
@@ -237,14 +244,14 @@ public class WordGrid extends View {
     private String getWord(Cell fromCell, Cell toCell) {
         String word = "";
         if(fromCell.getRow() == toCell.getRow()) {
-            int c = fromCell.getColumn() < toCell.getColumn() ? fromCell.getColumn() : toCell.getColumn();
+            int column = fromCell.getColumn() < toCell.getColumn() ? fromCell.getColumn() : toCell.getColumn();
             for(int i = 0; i < Math.abs(fromCell.getColumn() - toCell.getColumn()) + 1; i++) {
-                word += String.valueOf(cells[fromCell.getRow()][i+c].getLetter());
+                word += String.valueOf(cells[fromCell.getRow()][i+column].getLetter());
             }
         } else if(fromCell.getColumn() == toCell.getColumn()) {
-            int r = fromCell.getRow() < toCell.getRow() ? fromCell.getRow() : toCell.getRow();
+            int row = fromCell.getRow() < toCell.getRow() ? fromCell.getRow() : toCell.getRow();
             for(int i = 0; i < Math.abs(fromCell.getRow() - toCell.getRow()) + 1; i++) {
-                word += String.valueOf(cells[i+r][toCell.getColumn()].getLetter());
+                word += String.valueOf(cells[i+row][toCell.getColumn()].getLetter());
             }
         } else {
             if(fromCell.getRow() > toCell.getRow()) {
@@ -253,8 +260,8 @@ public class WordGrid extends View {
                 toCell = cell;
             }
             for(int i = 0; i < Math.abs(fromCell.getRow() - toCell.getRow()) + 1; i++) {
-                int foo = fromCell.getColumn() < toCell.getColumn() ? i : -i;
-                word += String.valueOf(cells[fromCell.getRow()+i][fromCell.getColumn()+foo].getLetter());
+                int temp = fromCell.getColumn() < toCell.getColumn() ? i : -i;
+                word += String.valueOf(cells[fromCell.getRow()+i][fromCell.getColumn()+temp].getLetter());
             }
         }
         return word;
