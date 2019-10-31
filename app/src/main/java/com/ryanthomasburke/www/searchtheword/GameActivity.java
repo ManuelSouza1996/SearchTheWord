@@ -549,7 +549,7 @@ public class GameActivity extends AppCompatActivity {
                         }
                         else {
                             placementAttempts = 0;
-                            i =0;
+                            i =-1;
                             for (int j =0; j < tmpLetterGrid.length;j++){
                                 for (int k = 0; k < tmpLetterGrid[j].length;k++) {
                                     tmpLetterGrid[j][k] = ' ';
@@ -567,7 +567,7 @@ public class GameActivity extends AppCompatActivity {
                 }
                 else {
                     placementAttempts = 0;
-                    i =0;
+                    i =-1;
                     for (int j =0; j < tmpLetterGrid.length;j++){
                         for (int k = 0; k < tmpLetterGrid[j].length;k++) {
                             tmpLetterGrid[j][k] = ' ';
