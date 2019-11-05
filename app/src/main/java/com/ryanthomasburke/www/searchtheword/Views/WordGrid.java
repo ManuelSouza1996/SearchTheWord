@@ -4,15 +4,21 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
 import androidx.core.view.MotionEventCompat;
 
+import com.ryanthomasburke.www.searchtheword.GameActivity;
 import com.ryanthomasburke.www.searchtheword.Utility.Word;
 
 import java.util.Random;
+
+import static android.content.Context.ACTIVITY_SERVICE;
+import static android.content.Context.VIBRATOR_SERVICE;
 
 public class WordGrid extends View {
 
@@ -28,11 +34,17 @@ public class WordGrid extends View {
     private Paint highlighter;
     private Paint gridPainter;
 
+    private Context context;
+
+
     private OnWordSearchedListener onWordSearchedListener;
     private int wordsSearched = 0;
 
+
+
     public WordGrid(Context context, AttributeSet attrs) {
         super(context, attrs);
+        this.context = context;
         initialize();
     }
 
@@ -155,9 +167,17 @@ public class WordGrid extends View {
         final float y = MotionEventCompat.getY(event, pointerIndex);
 
         if(event.getAction() == MotionEvent.ACTION_DOWN) {
+            try {
+                Vibrator v = (Vibrator) this.context.getSystemService(Context.VIBRATOR_SERVICE);
+                v.vibrate(50);
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
             cellDragStart = getCell(x,y);
             cellDragEnd = cellDragStart;
             invalidate();
+
         } else if(event.getAction() == MotionEvent.ACTION_MOVE) {
             Cell cell = getCell(x,y);
             if(cellDragStart != null && cell != null && isFromToValid(cellDragStart, cell)) {
@@ -165,6 +185,13 @@ public class WordGrid extends View {
                 invalidate();
             }
         } else if(event.getAction() == MotionEvent.ACTION_UP) {
+            try {
+                Vibrator v = (Vibrator) this.context.getSystemService(Context.VIBRATOR_SERVICE);
+                v.vibrate(50);
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
             String word = getWord(cellDragStart, cellDragEnd);
             highlightIfString(word);
             cellDragStart = null;
