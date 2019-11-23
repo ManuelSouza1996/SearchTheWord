@@ -1,23 +1,59 @@
 package com.ryanthomasburke.www.searchtheword;
 
+import android.os.Bundle;
+import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.Scanner;
 
-public class Highscores {
+public class Highscores extends AppCompatActivity {
     static int[] easyScores = new int[3];
     static int[] mediumScores = new int[3];
     static int[] hardScores = new int[3];
     static int[] allScores = new int[9];
-    static String path = "";
+    static String path = "highscores.txt";
 
-    public static void main(String[] args) {
+
+    @Override
+    protected void onCreate(Bundle savedStateInstance){
+        super.onCreate(savedStateInstance);
+        // TODO THESE TEXTVIEWS ARE THROWING ERRORS, NO IDEA WHY
+        setContentView(R.layout.activity_highscores);
+        TextView easy1 = (TextView) findViewById(R.id.easy1);
+        TextView easy2 = findViewById(R.id.easy2);
+        TextView easy3 = findViewById(R.id.easy3);
+        TextView medium1 = findViewById(R.id.medium1);
+        TextView medium2 = findViewById(R.id.medium2);
+        TextView medium3 = findViewById(R.id.medium3);
+        TextView hard1 = findViewById(R.id.hard1);
+        TextView hard2 = findViewById(R.id.hard2);
+        TextView hard3 = findViewById(R.id.hard3);
+        easy1.setText(easyScores[2]);
+        easy2.setText(easyScores[1]);
+        easy3.setText(easyScores[0]);
+        medium1.setText(easyScores[2]);
+        medium2.setText(easyScores[1]);
+        medium3.setText(easyScores[0]);
+        hard1.setText(easyScores[2]);
+        hard2.setText(easyScores[1]);
+        hard3.setText(easyScores[0]);
+    }
+
+    public void mainMethod(){
+        readHighScores(path);
+
+    }
+
+    /*public static void main(String[] args) {
         readHighScores(path);
         replaceScore(170, easyScores);
         updateFile(path);
-    }
+    }*/
 
     /*
      * @author Ryan
