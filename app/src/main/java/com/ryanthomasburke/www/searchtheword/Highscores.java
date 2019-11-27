@@ -5,18 +5,22 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.Scanner;
 
 public class Highscores extends AppCompatActivity {
-    static int[] easyScores = new int[3];
-    static int[] mediumScores = new int[3];
-    static int[] hardScores = new int[3];
-    static int[] allScores = new int[9];
-    static String path = "highscores.txt";
+    int[] easyScores = new int[3];
+    int[] mediumScores = new int[3];
+    int[] hardScores = new int[3];
+    int[] allScores = new int[9];
+    String path = "highscores.txt";
 
 
     @Override
@@ -24,7 +28,9 @@ public class Highscores extends AppCompatActivity {
         super.onCreate(savedStateInstance);
         // TODO THESE TEXTVIEWS ARE THROWING ERRORS, NO IDEA WHY
         setContentView(R.layout.activity_highscores);
-        TextView easy1 = (TextView) findViewById(R.id.easy1);
+        read();
+        System.out.println(easyScores[1]);
+        TextView easy1 = findViewById(R.id.easy1);
         TextView easy2 = findViewById(R.id.easy2);
         TextView easy3 = findViewById(R.id.easy3);
         TextView medium1 = findViewById(R.id.medium1);
@@ -33,40 +39,26 @@ public class Highscores extends AppCompatActivity {
         TextView hard1 = findViewById(R.id.hard1);
         TextView hard2 = findViewById(R.id.hard2);
         TextView hard3 = findViewById(R.id.hard3);
-        easy1.setText(easyScores[2]);
-        easy2.setText(easyScores[1]);
-        easy3.setText(easyScores[0]);
-        medium1.setText(easyScores[2]);
-        medium2.setText(easyScores[1]);
-        medium3.setText(easyScores[0]);
-        hard1.setText(easyScores[2]);
-        hard2.setText(easyScores[1]);
-        hard3.setText(easyScores[0]);
+        easy1.setText(Integer.toString(easyScores[2]));
+        easy2.setText(Integer.toString(easyScores[1]));
+        easy3.setText(Integer.toString(easyScores[0]));
+        medium1.setText(Integer.toString(mediumScores[2]));
+        medium2.setText(Integer.toString(mediumScores[1]));
+        medium3.setText(Integer.toString(mediumScores[0]));
+        hard1.setText(Integer.toString(hardScores[2]));
+        hard2.setText(Integer.toString(hardScores[1]));
+        hard3.setText(Integer.toString(hardScores[0]));
     }
 
-    public void mainMethod(){
-        readHighScores(path);
-
-    }
-
-    /*public static void main(String[] args) {
-        readHighScores(path);
-        replaceScore(170, easyScores);
-        updateFile(path);
-    }*/
-
-    /*
-     * @author Ryan
-     * @param path
-     */
-    public static void readHighScores(String path) {
-        Scanner scanner;
+    public void read(){
+        BufferedReader br;
         try {
-            scanner = new Scanner(new File(path));
-            for (int i = 0; scanner.hasNextLine(); i++) {
-                int line = Integer.parseInt(scanner.nextLine());
-                allScores[i] = line;
-                System.out.println(i + ":" + line);
+            br = new BufferedReader(
+                    new InputStreamReader(getAssets().open("highscores.txt")));
+
+            for (int i = 0; i < 9; i++){
+                allScores[i] = Integer.parseInt(br.readLine());
+                System.out.println(i + ":" + allScores[i]);
             }
             for (int i = 0; i < 3; i ++) {
                 easyScores[i] = allScores[i];
@@ -82,11 +74,12 @@ public class Highscores extends AppCompatActivity {
                 System.out.println(mediumScores[i]);
                 System.out.println(easyScores[i]);
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        catch (FileNotFoundException e) { e.printStackTrace(); }
     }
 
-    public static void replaceScore(int score, int[] scores) {
+    public void replaceScore(int score, int[] scores) {
 
         boolean scoreIsHighEnough = false;
 
@@ -104,7 +97,7 @@ public class Highscores extends AppCompatActivity {
 
     }
 
-    public static void updateFile(String path) {
+    public void updateFile(String path) {
         PrintWriter writer;
 
         for (int i = 0; i < 3; i++) {
