@@ -12,4 +12,7 @@
     <string name="instructions">Instructions</string>
     <string name="options">Options</string>
     <string name="play_game">Play Game</string>
+    <string name="textLevel">LEVEL:</string>
+    <string name="textTimer">TIME REMAINING:</string>
+    <string name="textScore">SCORE:</string>
 </resources>

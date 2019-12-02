@@ -24,4 +24,16 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
+    public void goToHighscore(View view){
+        try{
+            Intent intent = new Intent(this, Highscores.class);
+            System.out.println(intent.toString());
+            this.startActivity(intent);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
 }

@@ -5,10 +5,10 @@
     android:background="@drawable/fgg">
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btnEasy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:onClick="goToGame"
-        android:text="GO" />
+        android:text="@string/easy" />
 </RelativeLayout>

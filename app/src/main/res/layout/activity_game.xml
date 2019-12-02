@@ -7,7 +7,109 @@
     android:layout_height="match_parent"
     tools:context="com.ryanthomasburke.www.searchtheword.GameActivity"
     android:background="@android:color/white"
-    android:orientation="vertical">
+    android:orientation="vertical"><![CDATA[
+
+
+
+    3
+        android:layout_height="2dp"
+        android:layout_weight="3"
+        android:gravity="center_horizontal"
+        android:text="Timer" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    ]]>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight=".3"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textLevel"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/textLevel"
+                android:textAlignment="center"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/gameLevel"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textAlignment="center"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="3.3"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/TextTimer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/textTimer"
+                android:textAlignment="center"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/gameTimer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textAlignment="center"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textScore"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/textScore"
+                android:textAlignment="center"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/gameScore"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textAlignment="center"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+    </LinearLayout>
 
     <com.ryanthomasburke.www.searchtheword.Views.WordGrid
         android:id="@+id/wordsGrid"
@@ -15,11 +117,26 @@
         android:layout_height="wrap_content"
         android:layout_weight="3" />
 
-    <TextView
-        android:id="@+id/wordBank"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="3"
-        android:gravity="center_horizontal" />
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/wordBank"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:gravity="center_horizontal" />
+
+        <TextView
+            android:id="@+id/wordFound"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:gravity="center_horizontal" />
+
+    </LinearLayout>
 
 </LinearLayout>
