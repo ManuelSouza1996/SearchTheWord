@@ -1,5 +1,6 @@
 package com.ryanthomasburke.www.searchtheword;
 
+//Implementing timer Source: https://www.youtube.com/watch?v=MDuGwI6P-X8  +  https://codinginflow.com/tutorials/android/countdowntimer/part-1-countdown-timer
 
 import android.os.Bundle;
 import android.widget.TextView;
@@ -15,6 +16,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.io.InputStreamReader;
 import java.util.Collections;
+import android.os.CountDownTimer; //used for timer
+import java.util.Locale;          //used for timer
 
 public class GameActivity extends AppCompatActivity {
 
@@ -26,8 +29,16 @@ public class GameActivity extends AppCompatActivity {
     private int pointsPerWord;
     private int totalScore;
     private TextView wordBank;
+    private TextView timerView;
+    private CountDownTimer theCountDownTimer;
+    private boolean timeRunning;
+    private long timeRemaining;
+
+
     private ArrayList<String[]> wordList = new ArrayList<>();
     private char[][] letterGrid;
+
+
 
 
     //This is where the MAIN PROGRAM starts when Game Activity Loads.
@@ -38,11 +49,16 @@ public class GameActivity extends AppCompatActivity {
         wordGrid = findViewById(R.id.wordsGrid);
         currentLevel = 1;
         difficulty = 1.0;
-        numWords =14 + Math.min((int)Math.ceil(difficulty*currentLevel),5);  //currently do not go above 10 words or might loop forever trying to fill a grid.
+        numWords =14 + Math.min((int)Math.ceil(difficulty*currentLevel),5);
         pointsPerWord = 5 + (int)(10*difficulty);
         totalScore = 0;
-        //currentTimer = Math.max(((int)(90/difficulty)) - (int)(currentLevel*difficulty), 10);
+        //setup timer varaibles
+        currentTimer = (long)(Math.max(((int)(90/difficulty)) - (int)(currentLevel*difficulty), 10))*1000;
+        timeRemaining = currentTimer;
+        timeRunning = false;
+        timerView = findViewById(R.id.gameTimer);
 
+        //get words, place word in char array, and place words in wordGrid.
        String[] words = getWords(numWords);
        letterGrid = makeLetterGrid(words);
        Word[] newWordList = new Word[numWords];
@@ -52,6 +68,10 @@ public class GameActivity extends AppCompatActivity {
        wordGrid.setWords(newWordList);
        wordGrid.setLetters(letterGrid);
 
+
+       //Starts Timer
+        startTimer();
+        updateCountDownText();
 
        for (int i =0; i < wordList.size(); i++){
            for(int j = 0; j < wordList.get(i).length; j++){
@@ -71,10 +91,53 @@ public class GameActivity extends AppCompatActivity {
         });
 
 
+    }
 
+    //Starts Timer for the game
+    private void startTimer() {
+        theCountDownTimer = new CountDownTimer(timeRemaining, 1000) {
+            @Override
+            public void onTick(long timeUntilFinished) {
+                timeRemaining = timeUntilFinished;
+                updateCountDownText();
+            }
 
+            @Override
+            public void onFinish() {
+                timeRunning = false;
+                //Add Code HERE Later to Handle win and lost Conditions
+
+            }
+        }.start();
+
+        timeRunning = true;
+    }
+
+    //Pause Game Timer
+    private void pauseTimer() {
+        theCountDownTimer.cancel();
+        timeRunning = false;
+        //Code below may need to be modified for settings
 
     }
+
+
+    //Resets Game Timer
+    private void resetTimer() {
+        timeRemaining = currentTimer;
+        updateCountDownText();
+    }
+
+    //Update Timer to display time in the game
+    private void updateCountDownText() {
+        int minutes = (int) (timeRemaining / 1000) / 60;
+        int seconds = (int) (timeRemaining / 1000) % 60;
+
+        String timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
+
+        timerView.setText(timeLeftFormatted);
+    }
+
     /* Function Name: getWords
      * Written By: Jesse Vang
      * Inputs: The number of words one wants to retrieve from a file
