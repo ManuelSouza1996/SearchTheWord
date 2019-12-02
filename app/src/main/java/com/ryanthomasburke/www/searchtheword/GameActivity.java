@@ -30,11 +30,11 @@ public class GameActivity extends AppCompatActivity {
     private int totalScore;
     private TextView wordBank;
     private TextView timerView;
+    private TextView scoreView;
+    private TextView levelView;
     private CountDownTimer theCountDownTimer;
     private boolean timeRunning;
     private long timeRemaining;
-
-
     private ArrayList<String[]> wordList = new ArrayList<>();
     private char[][] letterGrid;
 
@@ -57,6 +57,9 @@ public class GameActivity extends AppCompatActivity {
         timeRemaining = currentTimer;
         timeRunning = false;
         timerView = findViewById(R.id.gameTimer);
+        scoreView = findViewById(R.id.gameScore);
+        levelView = findViewById(R.id.gameLevel);
+        levelView.setText(String.valueOf(currentLevel));
 
         //get words, place word in char array, and place words in wordGrid.
        String[] words = getWords(numWords);
@@ -86,6 +89,8 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void wordFound(String string) {
                 Toast.makeText(GameActivity.this, string + " found", Toast.LENGTH_SHORT).show();
+                updatePoints(pointsPerWord);  //adds score
+                addToTimer(4000);
 
             }
         });
@@ -113,6 +118,13 @@ public class GameActivity extends AppCompatActivity {
         timeRunning = true;
     }
 
+
+    //Adds extra time to current timer
+    private void addToTimer(long extraTimeInMilliSeconds){
+        pauseTimer();
+        timeRemaining = timeRemaining + extraTimeInMilliSeconds;
+        startTimer();
+    }
     //Pause Game Timer
     private void pauseTimer() {
         theCountDownTimer.cancel();
@@ -136,6 +148,11 @@ public class GameActivity extends AppCompatActivity {
         String timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
 
         timerView.setText(timeLeftFormatted);
+    }
+
+    private void updatePoints(int points){
+        totalScore += points;
+        scoreView.setText(String.valueOf(totalScore));
     }
 
     /* Function Name: getWords
