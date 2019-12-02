@@ -1,3 +1,0 @@
-TODO:
-Create two lists for words, one for remaining words, one for found words.
-I think I can accomplish this by making a copy of the word array.

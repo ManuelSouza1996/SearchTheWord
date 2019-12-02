@@ -20,7 +20,7 @@ public class GameActivity extends AppCompatActivity {
 
     private WordGrid wordGrid;
     private int currentLevel;
-    private int currentTimer;
+    private long currentTimer;
     private double difficulty;
     private int numWords;
     private int pointsPerWord;
@@ -29,22 +29,8 @@ public class GameActivity extends AppCompatActivity {
     private ArrayList<String[]> wordList = new ArrayList<>();
     private char[][] letterGrid;
 
-   /* private char[][] letterGrid = {
-            //0   1   2   3   4   5   6   7   8   9
-            {'A','B','C','D','E','P','G','H','Z','A'}, // 0
-            {'N','D','D','H','H','F','G','H','Y','B'}, // 1
-            {'T','A','E','D','E','Y','G','H','S','C'}, // 2
-            {'O','J','C','W','H','F','G','H','F','D'}, // 3
-            {'N','E','W','D','O','F','G','R','G','E'}, // 4
-            {'I','S','E','G','E','R','Y','H','J','F'}, // 5
-            {'A','S','C','D','E','A','D','H','K','G'}, // 6
-            {'A','E','M','A','N','U','E','L','I','H'}, // 7
-            {'A','G','G','S','O','M','E','O','I','I'}, // 8
-            {'A','B','C','D','E','F','G','H','I','J'}  // 9
-    };
 
-    */
-
+    //This is where the MAIN PROGRAM starts when Game Activity Loads.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +52,7 @@ public class GameActivity extends AppCompatActivity {
        wordGrid.setWords(newWordList);
        wordGrid.setLetters(letterGrid);
 
+
        for (int i =0; i < wordList.size(); i++){
            for(int j = 0; j < wordList.get(i).length; j++){
                System.out.print(wordList.get(i)[j].toString()+ ",");
@@ -73,20 +60,13 @@ public class GameActivity extends AppCompatActivity {
            System.out.println("");
 
        }
-/*
-        wordGrid.setWords(
-                new Word("ANTONIA", false, 0, 0, 0, 6),
-                new Word("JESSE", false, 1, 3, 1, 7),
-                new Word("MANUEL", false, 2, 7, 7, 7),
-                new Word("LO", false, 7, 7, 7, 8),
-                new Word("RYAN", false, 7, 4, 4, 7)
-        );
-*/
 
+        //Event Handler for when a word is found
         wordGrid.setOnWordSearchedListener(new WordGrid.OnWordSearchedListener() {
             @Override
             public void wordFound(String string) {
                 Toast.makeText(GameActivity.this, string + " found", Toast.LENGTH_SHORT).show();
+
             }
         });
 
@@ -100,7 +80,7 @@ public class GameActivity extends AppCompatActivity {
      * Inputs: The number of words one wants to retrieve from a file
      * Outputs:  The requested number of words pulled from file is returned as a String Array.
      * Objective: The methods pulls some amount of a word file and returns those words in a string array.
-     * CALLERS:
+     * CALLERS: OnCreate()
      * CALLEES:
      * Resource: Loading a file to bufferedStream code layout idea comes from: https://www.geeksforgeeks.org/different-ways-reading-text-file-java/
      *           Reading from a file in Android Studio Code example from Here:  https://stackoverflow.com/questions/9544737/read-file-from-assets
@@ -234,7 +214,7 @@ public class GameActivity extends AppCompatActivity {
      * Inputs: Takes in a list of word that needs to be placed in the word Search.
      * Outputs:  A word Search grid 10 by 10 will be output as a char[][]
      * Objective: The methods inserts some amount of a words into a 2d array and fills remaining spots with letters.
-     * CALLERS:
+     * CALLERS: onCreate()
      * CALLEES:
      * Resources: N/A
      * Algorithm:
