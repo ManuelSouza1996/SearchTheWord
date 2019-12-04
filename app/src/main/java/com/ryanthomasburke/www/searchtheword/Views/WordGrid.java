@@ -9,10 +9,12 @@ import android.os.Vibrator;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.core.view.MotionEventCompat;
 
 import com.ryanthomasburke.www.searchtheword.GameActivity;
+import com.ryanthomasburke.www.searchtheword.R;
 import com.ryanthomasburke.www.searchtheword.Utility.Word;
 
 import java.util.Random;
@@ -67,6 +69,8 @@ public class WordGrid extends View {
         gridPainter.setStrokeWidth(4);
         gridPainter.setStrokeCap(Paint.Cap.SQUARE);
         gridPainter.setColor(0x11000000);
+
+
     }
 
     @Override
@@ -306,6 +310,13 @@ public class WordGrid extends View {
                         onWordSearchedListener.wordFound(reverseString(string));
                     }
                 }
+
+                try{
+                    TextView wordFound;
+                    wordFound = findViewById(R.id.wordFound);
+                    //wordFound.append(string + "\n");
+                } catch(Exception e){e.printStackTrace();}
+
                 word.setHighlighted(true);
                 wordsSearched++;
                 break;
