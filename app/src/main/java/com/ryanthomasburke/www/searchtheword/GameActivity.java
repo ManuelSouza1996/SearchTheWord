@@ -29,6 +29,7 @@ public class GameActivity extends AppCompatActivity {
     private int pointsPerWord;
     private int totalScore;
     private TextView wordBank;
+    private TextView wordFound;
     private TextView timerView;
     private TextView scoreView;
     private TextView levelView;
@@ -46,6 +47,8 @@ public class GameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+        wordFound = findViewById(R.id.wordFound);
+        wordFound.setText("");
         wordGrid = findViewById(R.id.wordsGrid);
         currentLevel = 1;
         difficulty = 1.0;
