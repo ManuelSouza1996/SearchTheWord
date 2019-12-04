@@ -9,13 +9,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.ryanthomasburke.www.searchtheword.Utility.Word;
 import com.ryanthomasburke.www.searchtheword.Views.WordGrid;
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.io.InputStreamReader;
-import java.util.Collections;
 import android.os.CountDownTimer; //used for timer
 import java.util.Locale;          //used for timer
 
@@ -37,6 +34,7 @@ public class GameActivity extends AppCompatActivity {
     private long timeRemaining;
     private ArrayList<String[]> wordList = new ArrayList<>();
     private char[][] letterGrid;
+    private boolean gameover = false;
 
 
 
@@ -49,10 +47,11 @@ public class GameActivity extends AppCompatActivity {
         wordGrid = findViewById(R.id.wordsGrid);
         currentLevel = 1;
         difficulty = 1.0;
-        numWords =14 + Math.min((int)Math.ceil(difficulty*currentLevel),5);
+        numWords =5 + Math.min((int)Math.ceil(difficulty*currentLevel),5);
         pointsPerWord = 5 + (int)(10*difficulty);
         totalScore = 0;
-        //setup timer varaibles
+
+        //setup timer variables and display score, timer, and current level
         currentTimer = (long)(Math.max(((int)(90/difficulty)) - (int)(currentLevel*difficulty), 10))*1000;
         timeRemaining = currentTimer;
         timeRunning = false;
@@ -62,27 +61,27 @@ public class GameActivity extends AppCompatActivity {
         levelView.setText(String.valueOf(currentLevel));
 
         //get words, place word in char array, and place words in wordGrid.
-       String[] words = getWords(numWords);
-       letterGrid = makeLetterGrid(words);
-       Word[] newWordList = new Word[numWords];
-       for (int i = 0; i < words.length; i ++){
-           newWordList[i] = new Word(wordList.get(i)[0],false,Integer.valueOf(wordList.get(i)[2]),Integer.valueOf(wordList.get(i)[3]), Integer.valueOf(wordList.get(i)[4]),Integer.valueOf(wordList.get(i)[5]));
-       }
-       wordGrid.setWords(newWordList);
-       wordGrid.setLetters(letterGrid);
+        String[] words = getWords(numWords);
+        letterGrid = makeLetterGrid(words);
+        Word[] newWordList = new Word[numWords];
+        for (int i = 0; i < words.length; i ++){
+            newWordList[i] = new Word(wordList.get(i)[0],false,Integer.valueOf(wordList.get(i)[2]),Integer.valueOf(wordList.get(i)[3]), Integer.valueOf(wordList.get(i)[4]),Integer.valueOf(wordList.get(i)[5]));
+        }
+        wordGrid.setWords(newWordList);
+        wordGrid.setLetters(letterGrid);
 
 
-       //Starts Timer
+        //Starts Timer
         startTimer();
         updateCountDownText();
 
-       for (int i =0; i < wordList.size(); i++){
-           for(int j = 0; j < wordList.get(i).length; j++){
-               System.out.print(wordList.get(i)[j].toString()+ ",");
-           }
-           System.out.println("");
+        for (int i =0; i < wordList.size(); i++){
+            for(int j = 0; j < wordList.get(i).length; j++){
+                System.out.print(wordList.get(i)[j].toString()+ ",");
+            }
+            System.out.println("");
 
-       }
+        }
 
         //Event Handler for when a word is found
         wordGrid.setOnWordSearchedListener(new WordGrid.OnWordSearchedListener() {
@@ -91,6 +90,7 @@ public class GameActivity extends AppCompatActivity {
                 Toast.makeText(GameActivity.this, string + " found", Toast.LENGTH_SHORT).show();
                 updatePoints(pointsPerWord);  //adds score
                 addToTimer(4000);
+
 
             }
         });
@@ -111,6 +111,10 @@ public class GameActivity extends AppCompatActivity {
             public void onFinish() {
                 timeRunning = false;
                 //Add Code HERE Later to Handle win and lost Conditions
+                gameover = true;
+                String s = "High Score:" + checkHighScore();
+                Toast.makeText(GameActivity.this,  "Game Over " + s, Toast.LENGTH_SHORT).show();
+
 
             }
         }.start();
@@ -131,7 +135,105 @@ public class GameActivity extends AppCompatActivity {
         timeRunning = false;
         //Code below may need to be modified for settings
 
+
+
+
+
+
+
+
     }
+
+    //Checks High Score
+    private boolean checkHighScore(){
+
+        String[] highScore = new String[10];  //There are only 9 highscores
+        int wordInFileCount =0;
+        //reads HighScore File
+        BufferedReader br = null;
+        try {
+            br = new BufferedReader(
+                    new InputStreamReader(getAssets().open("highscores.txt")));
+
+            String mLine;
+            while ((mLine = br.readLine()) != null) {
+                highScore[wordInFileCount] = mLine;
+                wordInFileCount++;
+
+            }
+            //
+
+            Boolean newHighScore = false;
+            int tempTotalScore = totalScore;
+            //Easy
+            if (difficulty == 1.0) {
+                for (int i =0; i < 3; i++){
+                    int tempInt = Integer.parseInt(highScore[0].toString());
+                    if (tempTotalScore > tempInt){
+                        newHighScore = true;
+                        tempTotalScore = tempInt;
+                        highScore[0] = String.valueOf(tempTotalScore);
+
+                    }
+                }
+            }
+
+            //Medium
+            else if (difficulty == 1.5) {
+                for (int i =3; i < 6; i++){
+                    int tempInt = Integer.parseInt(highScore[0].toString());
+                    if (tempTotalScore > tempInt){
+                        newHighScore = true;
+                        tempTotalScore = tempInt;
+                        highScore[0] = String.valueOf(tempTotalScore);
+
+                    }
+                }
+            }
+            //Hard
+            else if (difficulty == 2.0) {
+                for (int i =6; i < 9; i++){
+                    int tempInt = Integer.parseInt(highScore[0].toString());
+                    if (tempTotalScore > tempInt){
+                        newHighScore = true;
+                        tempTotalScore = tempInt;
+                        highScore[0] = String.valueOf(tempTotalScore);
+
+                    }
+                }
+            }
+
+
+            //Writes new High Score
+
+
+            if (newHighScore) {
+                //Method to Write goes Below Here:
+                //We need to read and review http://instinctcoder.com/read-and-write-text-file-in-android-studio/
+                //Asset files are appearently only read only, so will need to find a way to write to user's SD Cards, example above may work.
+
+                return newHighScore;
+            }
+            else{
+                return false;
+            }
+
+        } catch (IOException e) {
+            //log the exception
+        } finally {
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException e) {
+
+                }
+            }
+        }
+
+        return false;
+    }
+
+
 
 
     //Resets Game Timer
@@ -428,7 +530,7 @@ public class GameActivity extends AppCompatActivity {
                     }
                     if (strCount == wordlength) {
                         topRight= true;
-                      //  validChoice.add("topRight");
+                        //  validChoice.add("topRight");
                     }
                 }
 
@@ -447,7 +549,7 @@ public class GameActivity extends AppCompatActivity {
                     }
                     if (strCount == wordlength) {
                         topLeft= true;
-                     //   validChoice.add("topLeft");
+                        //   validChoice.add("topLeft");
                     }
                 }
             }
@@ -466,7 +568,7 @@ public class GameActivity extends AppCompatActivity {
                     }
                     if (strCount == wordlength) {
                         bottomRight= true;
-                       // validChoice.add("bottomRight");
+                        // validChoice.add("bottomRight");
                     }
                 }
 
@@ -484,7 +586,7 @@ public class GameActivity extends AppCompatActivity {
                     }
                     if (strCount == wordlength) {
                         bottomLeft= true;
-                       // validChoice.add("bottomLeft");
+                        // validChoice.add("bottomLeft");
                     }
                 }
 
