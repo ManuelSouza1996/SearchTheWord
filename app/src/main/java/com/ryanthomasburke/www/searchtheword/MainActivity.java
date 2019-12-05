@@ -25,6 +25,17 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void goToInstructions(View view){
+        try{
+            Intent intent = new Intent(this, InstructionsActivity.class);
+            System.out.println(intent.toString());
+            this.startActivity(intent);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
     public void goToHighscore(View view){
         try{
             Intent intent = new Intent(this, Highscores.class);
