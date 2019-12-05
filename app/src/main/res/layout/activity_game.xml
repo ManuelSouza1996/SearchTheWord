@@ -136,7 +136,6 @@
             android:layout_height="match_parent"
             android:layout_weight="3"
             android:gravity="center_horizontal"
-            android:hint="hint"
             android:text=" " />
 
     </LinearLayout>
