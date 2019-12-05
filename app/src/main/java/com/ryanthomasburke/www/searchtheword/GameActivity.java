@@ -2,7 +2,10 @@ package com.ryanthomasburke.www.searchtheword;
 
 //Implementing timer Source: https://www.youtube.com/watch?v=MDuGwI6P-X8  +  https://codinginflow.com/tutorials/android/countdowntimer/part-1-countdown-timer
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,6 +35,7 @@ public class GameActivity extends AppCompatActivity {
     private TextView timerView;
     private TextView scoreView;
     private TextView levelView;
+    private Button nextLevelButton;
     private CountDownTimer theCountDownTimer;
     private boolean timeRunning;
     private long timeRemaining;
@@ -55,15 +59,15 @@ public class GameActivity extends AppCompatActivity {
         // to verify it has correct data.
         container = DifficultyActivity.container;
         System.out.println("Dif: " + container.getDifficulty());
-
         wordGrid = findViewById(R.id.wordsGrid);
         wordBank = findViewById(R.id.wordBank);
         wordFound = findViewById(R.id.wordFound);
-        currentLevel = 1;
-        difficulty = 1.0;
+        currentLevel = container.getCurrentLevel();
+        difficulty = container.getDifficulty();
         numWords =5 + Math.min((int)Math.ceil(difficulty*currentLevel),5);
         pointsPerWord = 5 + (int)(10*difficulty);
-        totalScore = 0;
+        totalScore = container.getTotalScore();
+
 
         //setup timer variables and display score, timer, and current level
         currentTimer = (long)(Math.max(((int)(90/difficulty)) - (int)(currentLevel*difficulty), 10))*1000;
@@ -72,6 +76,9 @@ public class GameActivity extends AppCompatActivity {
         timerView = findViewById(R.id.gameTimer);
         scoreView = findViewById(R.id.gameScore);
         levelView = findViewById(R.id.gameLevel);
+        scoreView.setText(String.valueOf(totalScore));
+        nextLevelButton = findViewById(R.id.btnNextLevel);
+        nextLevelButton.setVisibility(View.INVISIBLE);
         levelView.setText(String.valueOf(currentLevel));
 
         //get words, place word in char array, and place words in wordGrid.
@@ -109,6 +116,7 @@ public class GameActivity extends AppCompatActivity {
                         wordBank.append("Current Points:" + totalScore +"\n");
                         totalScore = totalScore + (int)(timeRemaining/1000/2);
                         wordBank.append("Total Points:" + totalScore +"\n");
+                        nextLevelButton.setVisibility(View.VISIBLE);
 
                     }
 
@@ -121,6 +129,13 @@ public class GameActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    public void NextLevel(View view){
+        container.setCurrentLevel(container.getCurrentLevel() +1);
+        container.setTotalScore(totalScore);
+        Intent intent = new Intent(this, GameActivity.class);
+        this.startActivity(intent);
     }
 
     //Starts Timer for the game
