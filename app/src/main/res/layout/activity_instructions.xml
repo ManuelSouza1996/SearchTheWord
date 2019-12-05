@@ -23,7 +23,36 @@
         android:layout_centerInParent="false"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="false"
-        android:text="@string/instructions"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginRight="25dp"
+        android:text="1) Selecting Difficulty: When you choose a harder difficulty, you start out with less time and earn less time per word found."
         android:textColor="@android:color/black"
-        android:textSize="24sp" />
+        android:textSize="27sp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textInstructions"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginRight="25dp"
+        android:text="2) Find all of the words in the word bank before the timer reaches zero. If you succeed, you will be taken to the next level."
+        android:textColor="@android:color/black"
+        android:textSize="27sp" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView3"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginRight="25dp"
+        android:text="3) When you have found a word from the word bank, slide your finger from the first letter of the word to the last letter of the word."
+        android:textColor="@android:color/black"
+        android:textSize="27sp" />
 </RelativeLayout>
