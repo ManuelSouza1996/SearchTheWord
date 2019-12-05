@@ -5,10 +5,47 @@
     android:background="@drawable/fgg">
 
     <Button
+        android:id="@+id/btnHard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnMedium"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="45dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="35dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginBottom="35dp"
+        android:onClick="hardButton"
+        android:text="@string/Hard" />
+
+    <Button
         android:id="@+id/btnEasy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="50dp"
+        android:layout_marginLeft="45dp"
+        android:layout_marginTop="180dp"
+        android:layout_marginEnd="45dp"
+        android:layout_marginRight="45dp"
+        android:layout_marginBottom="45dp"
         android:onClick="easyButton"
         android:text="@string/easy" />
+
+    <Button
+        android:id="@+id/btnMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnEasy"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="45dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginTop="45dp"
+        android:layout_marginEnd="45dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginBottom="45dp"
+        android:onClick="mediumButton"
+        android:text="@string/Medium" />
 </RelativeLayout>

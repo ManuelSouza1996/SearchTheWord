@@ -27,6 +27,22 @@ public class DifficultyActivity extends AppCompatActivity {
         this.startActivity(intent);
     }
 
+    public void mediumButton(View view){
+        container.setDifficulty(2);
+        container.setTotalScore(0);
+        container.setCurrentLevel(1);
+        Intent intent = new Intent(this, GameActivity.class);
+        this.startActivity(intent);
+    }
+
+    public void hardButton(View view){
+        container.setDifficulty(3);
+        container.setTotalScore(0);
+        container.setCurrentLevel(1);
+        Intent intent = new Intent(this, GameActivity.class);
+        this.startActivity(intent);
+    }
+
 
 
 }
