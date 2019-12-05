@@ -35,7 +35,7 @@ public class WordGrid extends View {
     private Paint textPainter;
     private Paint highlighter;
     private Paint gridPainter;
-
+    private boolean gameover = false;
     private Context context;
 
 
@@ -72,6 +72,12 @@ public class WordGrid extends View {
 
 
     }
+
+    public void setGameOver(boolean input){
+
+        this.gameover = input;
+    }
+
 
     @Override
     protected void onDraw(Canvas canvas) {
@@ -300,26 +306,29 @@ public class WordGrid extends View {
     }
 
     private void highlightIfString(String string) {
-        for(Word word : words) {
-            if((word.getWord().equals(string))||(word.getWord().equals(reverseString(string)))) {
-                if(onWordSearchedListener != null) {
-                    if (word.getWord().equals(string)) {
-                        onWordSearchedListener.wordFound(string);
+        if(gameover == false) {
+            for (Word word : words) {
+                if ((word.getWord().equals(string)) || (word.getWord().equals(reverseString(string)))) {
+                    if (onWordSearchedListener != null) {
+                        if (word.getWord().equals(string)) {
+                            onWordSearchedListener.wordFound(string);
+                        } else if (word.getWord().equals(reverseString(string))) {
+                            onWordSearchedListener.wordFound(reverseString(string));
+                        }
                     }
-                    else if ( word.getWord().equals(reverseString(string))){
-                        onWordSearchedListener.wordFound(reverseString(string));
+
+                    try {
+                        TextView wordFound;
+                        wordFound = findViewById(R.id.wordFound);
+                        //wordFound.append(string + "\n");
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
+
+                    word.setHighlighted(true);
+                    wordsSearched++;
+                    break;
                 }
-
-                try{
-                    TextView wordFound;
-                    wordFound = findViewById(R.id.wordFound);
-                    //wordFound.append(string + "\n");
-                } catch(Exception e){e.printStackTrace();}
-
-                word.setHighlighted(true);
-                wordsSearched++;
-                break;
             }
         }
     }

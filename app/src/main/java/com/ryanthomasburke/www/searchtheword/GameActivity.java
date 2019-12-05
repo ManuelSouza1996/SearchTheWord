@@ -78,21 +78,32 @@ public class GameActivity extends AppCompatActivity {
         startTimer();
         updateCountDownText();
 
-        for (int i =0; i < wordList.size(); i++){
-            for(int j = 0; j < wordList.get(i).length; j++){
-                System.out.print(wordList.get(i)[j].toString()+ ",");
-            }
-            System.out.println("");
+       // for (int i =0; i < wordList.size(); i++){
+       //     for(int j = 0; j < wordList.get(i).length; j++){
+       //         System.out.print(wordList.get(i)[j].toString()+ ",");
+        //    }
+        //    System.out.println("");
 
-        }
+        //}
 
         //Event Handler for when a word is found
         wordGrid.setOnWordSearchedListener(new WordGrid.OnWordSearchedListener() {
             @Override
             public void wordFound(String string) {
-                Toast.makeText(GameActivity.this, string + " found", Toast.LENGTH_SHORT).show();
-                updatePoints(pointsPerWord);  //adds score
-                addToTimer(4000);
+                if (gameover == false) {
+                    Toast.makeText(GameActivity.this, string + " found", Toast.LENGTH_SHORT).show();
+                    updatePoints(pointsPerWord);  //adds score
+                    addToTimer(4000);
+
+                    //cross off words
+                    checkOffWord(string);
+                    //checks win conditions
+                   //String tempS = new String();
+                   //tempS = String.valueOf(playerWins());
+                  // Toast.makeText(GameActivity.this, tempS + " <--Did Player Win?", Toast.LENGTH_SHORT).show();
+                }
+
+
 
 
             }
@@ -115,6 +126,7 @@ public class GameActivity extends AppCompatActivity {
                 timeRunning = false;
                 //Add Code HERE Later to Handle win and lost Conditions
                 gameover = true;
+                wordGrid.setGameOver(true);
                 String s = "High Score:" + checkHighScore();
                 Toast.makeText(GameActivity.this,  "Game Over " + s, Toast.LENGTH_SHORT).show();
 
@@ -357,7 +369,7 @@ public class GameActivity extends AppCompatActivity {
                         tmpWordList[i] = currentLine.toUpperCase();
                         wordBank = findViewById(R.id.wordBank);
                         wordBank.append(currentLine.toUpperCase() + "\n");
-                        String[] strAdd =new String[6];
+                        String[] strAdd =new String[7];
 
                         strAdd[0] = currentLine.toUpperCase();
                         strAdd[1] = "false";
@@ -365,6 +377,7 @@ public class GameActivity extends AppCompatActivity {
                         strAdd[3] = "0";
                         strAdd[4] = "0";
                         strAdd[5] = "0";
+                        strAdd[6] = "false";
 
                         wordList.add(strAdd);
                     }
@@ -391,6 +404,38 @@ public class GameActivity extends AppCompatActivity {
         //6. String Array is returned
         return tmpWordList;
     }
+
+
+    //cross off a word once it's been found in the wordList
+    private void checkOffWord(String inputWordFound){
+        for (int i = 0;i < wordList.size(); i ++){
+            if (wordList.get(i)[0].equals(inputWordFound)){
+                String[] tempInput = new String[7];
+                tempInput[0] =wordList.get(i)[0].toString();
+                tempInput[1] =wordList.get(i)[1].toString();
+                tempInput[2] =wordList.get(i)[2].toString();
+                tempInput[3] =wordList.get(i)[3].toString();
+                tempInput[4] =wordList.get(i)[4].toString();
+                tempInput[5] =wordList.get(i)[5].toString();
+                tempInput[6] = "true";
+                wordList.set(i,tempInput);
+            }
+        }
+
+    }
+
+    //Checks to see if All words has been checked off
+    private boolean playerWins(){
+        boolean wins = true;
+        for(int i = 0; i < wordList.size(); i ++){
+            if (wordList.get(i)[6].equals("false")){
+                wins = false;
+                break;
+            }
+        }
+        return wins;
+    }
+
 
 
     /* Function Name: makeLetterGrid
