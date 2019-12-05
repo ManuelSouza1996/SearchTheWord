@@ -20,6 +20,9 @@ import java.util.Arrays;
 import java.io.InputStreamReader;
 import android.os.CountDownTimer; //used for timer
 import java.util.Locale;          //used for timer
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
 
 public class GameActivity extends AppCompatActivity {
 
@@ -136,6 +139,7 @@ public class GameActivity extends AppCompatActivity {
         container.setTotalScore(totalScore);
         Intent intent = new Intent(this, GameActivity.class);
         this.startActivity(intent);
+        finish();
     }
 
     //Starts Timer for the game
@@ -248,6 +252,7 @@ public class GameActivity extends AppCompatActivity {
                 //Method to Write goes Below Here:
                 //We need to read and review http://instinctcoder.com/read-and-write-text-file-in-android-studio/
                 //Asset files are appearently only read only, so will need to find a way to write to user's SD Cards, example above may work.
+
 
                 return newHighScore;
             }
