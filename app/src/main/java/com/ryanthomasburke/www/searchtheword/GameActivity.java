@@ -106,9 +106,7 @@ public class GameActivity extends AppCompatActivity {
                         pauseTimer();
                         wordBank.setText("You Win\n");
                         wordBank.append("Time Bonus Points:" + (timeRemaining/1000/2) +"\n");
-
                         wordBank.append("Current Points:" + totalScore +"\n");
-
                         totalScore = totalScore + (int)(timeRemaining/1000/2);
                         wordBank.append("Total Points:" + totalScore +"\n");
 
@@ -142,8 +140,8 @@ public class GameActivity extends AppCompatActivity {
                 wordGrid.setGameOver(true);
 
                 wordBank.setText("GAME OVER \n");
-                wordBank.append("Final Score:" + totalScore);
-                wordBank.append("Player Break a New Record:" + String.valueOf(checkHighScore()) + "\n");
+                wordBank.append("Final Score:" + totalScore +"\n");
+
 
             }
         }.start();
