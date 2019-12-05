@@ -256,7 +256,7 @@ nos
 not
 now
 nun
-nut
+numb
 oak
 odd
 off
@@ -528,7 +528,7 @@ deep
 deny
 desk
 dial
-dick
+dock
 diet
 disc
 disk

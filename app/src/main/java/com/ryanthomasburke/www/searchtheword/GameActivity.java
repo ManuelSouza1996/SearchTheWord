@@ -252,7 +252,7 @@ public class GameActivity extends AppCompatActivity {
                 //Method to Write goes Below Here:
                 //We need to read and review http://instinctcoder.com/read-and-write-text-file-in-android-studio/
                 //Asset files are appearently only read only, so will need to find a way to write to user's SD Cards, example above may work.
-
+                
 
                 return newHighScore;
             }
