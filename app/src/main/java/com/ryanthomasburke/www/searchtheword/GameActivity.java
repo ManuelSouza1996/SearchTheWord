@@ -14,6 +14,7 @@ import com.ryanthomasburke.www.searchtheword.Utility.Container;
 import com.ryanthomasburke.www.searchtheword.Utility.Word;
 import com.ryanthomasburke.www.searchtheword.Views.WordGrid;
 import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -157,9 +158,12 @@ public class GameActivity extends AppCompatActivity {
                 //Handles win and lose condition
                 gameover = true;
                 wordGrid.setGameOver(true);
-
                 wordBank.setText("GAME OVER \n");
                 wordBank.append("Final Score:" + totalScore +"\n");
+
+                if(checkHighScore()){
+                    wordBank.append("CONGRATULATIONS\n New Record\n");
+                }
 
 
             }
@@ -191,10 +195,12 @@ public class GameActivity extends AppCompatActivity {
         String[] highScore = new String[10];  //There are only 9 highscores
         int wordInFileCount =0;
         //reads HighScore File
+
         BufferedReader br = null;
         try {
-            br = new BufferedReader(
-                    new InputStreamReader(getAssets().open("highscores.txt")));
+            File myFile = new File(getFilesDir()+"/highscores.txt");
+            FileReader fr =new FileReader(myFile);
+            br = new BufferedReader(fr);
 
             String mLine;
             while ((mLine = br.readLine()) != null) {
@@ -209,36 +215,39 @@ public class GameActivity extends AppCompatActivity {
             //Easy
             if (difficulty == 1.0) {
                 for (int i =0; i < 3; i++){
-                    int tempInt = Integer.parseInt(highScore[0].toString());
+                    int tempInt = Integer.parseInt(highScore[i].toString());
                     if (tempTotalScore > tempInt){
+                        highScore[i] = String.valueOf(tempTotalScore);
                         newHighScore = true;
                         tempTotalScore = tempInt;
-                        highScore[0] = String.valueOf(tempTotalScore);
+
 
                     }
                 }
             }
 
             //Medium
-            else if (difficulty == 1.5) {
-                for (int i =3; i < 6; i++){
-                    int tempInt = Integer.parseInt(highScore[0].toString());
+            else if (difficulty == 2) {
+                for (int i =0; i < 3; i++){
+                    int tempInt = Integer.parseInt(highScore[i+3].toString());
                     if (tempTotalScore > tempInt){
+                        highScore[i+3] = String.valueOf(tempTotalScore);
                         newHighScore = true;
                         tempTotalScore = tempInt;
-                        highScore[0] = String.valueOf(tempTotalScore);
+
 
                     }
                 }
             }
             //Hard
-            else if (difficulty == 2.0) {
-                for (int i =6; i < 9; i++){
-                    int tempInt = Integer.parseInt(highScore[0].toString());
+            else if (difficulty == 3) {
+                for (int i =0; i < 3; i++){
+                    int tempInt = Integer.parseInt(highScore[i+6].toString());
                     if (tempTotalScore > tempInt){
+                        highScore[i+6] = String.valueOf(tempTotalScore);
                         newHighScore = true;
                         tempTotalScore = tempInt;
-                        highScore[0] = String.valueOf(tempTotalScore);
+
 
                     }
                 }
@@ -250,9 +259,30 @@ public class GameActivity extends AppCompatActivity {
 
             if (newHighScore) {
                 //Method to Write goes Below Here:
-                //We need to read and review http://instinctcoder.com/read-and-write-text-file-in-android-studio/
-                //Asset files are appearently only read only, so will need to find a way to write to user's SD Cards, example above may work.
-                
+                try {
+
+                    File myFile2 = new File(getFilesDir()+"/highscores.txt");
+
+                        FileOutputStream fOut = new FileOutputStream(myFile2);
+                        OutputStreamWriter myOutWriter =
+                                new OutputStreamWriter(fOut);
+                        myOutWriter.write(highScore[0].toString()+"\n");
+                        myOutWriter.write(highScore[1].toString()+"\n");
+                        myOutWriter.write(highScore[2].toString()+"\n");
+                        myOutWriter.write(highScore[3].toString()+"\n");
+                        myOutWriter.write(highScore[4].toString()+"\n");
+                        myOutWriter.write(highScore[5].toString()+"\n");
+                        myOutWriter.write(highScore[6].toString()+"\n");
+                        myOutWriter.write(highScore[7].toString()+"\n");
+                        myOutWriter.write(highScore[8].toString()+"\n");
+                        myOutWriter.close();
+                        fOut.close();
+
+
+                } catch (Exception e) {
+                    e.getMessage();
+                }
+
 
                 return newHighScore;
             }
