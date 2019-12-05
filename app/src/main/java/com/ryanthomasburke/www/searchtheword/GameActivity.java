@@ -75,7 +75,7 @@ public class GameActivity extends AppCompatActivity {
         levelView.setText(String.valueOf(currentLevel));
 
         //get words, place word in char array, and place words in wordGrid.
-        String[] words = getWords(numWords);
+        final String[] words = getWords(numWords);
         letterGrid = makeLetterGrid(words);
         Word[] newWordList = new Word[numWords];
         for (int i = 0; i < words.length; i ++){
@@ -89,13 +89,6 @@ public class GameActivity extends AppCompatActivity {
         startTimer();
         updateCountDownText();
 
-       // for (int i =0; i < wordList.size(); i++){
-       //     for(int j = 0; j < wordList.get(i).length; j++){
-       //         System.out.print(wordList.get(i)[j].toString()+ ",");
-        //    }
-        //    System.out.println("");
-
-        //}
 
         //Event Handler for when a word is found
         wordGrid.setOnWordSearchedListener(new WordGrid.OnWordSearchedListener() {
@@ -106,10 +99,20 @@ public class GameActivity extends AppCompatActivity {
                     updatePoints(pointsPerWord);  //adds score
                     addToTimer(4000);
 
-
-
-
                     checkOffWord(string);
+                    playerWins();
+
+                    if (playerWins()){
+                        pauseTimer();
+                        wordBank.setText("You Win\n");
+                        wordBank.append("Time Bonus Points:" + (timeRemaining/1000/2) +"\n");
+
+                        wordBank.append("Current Points:" + totalScore +"\n");
+
+                        totalScore = totalScore + (int)(timeRemaining/1000/2);
+                        wordBank.append("Total Points:" + totalScore +"\n");
+
+                    }
 
                 }
 
@@ -134,12 +137,13 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void onFinish() {
                 timeRunning = false;
-                //Add Code HERE Later to Handle win and lost Conditions
+                //Handles win and lose condition
                 gameover = true;
                 wordGrid.setGameOver(true);
-                String s = "High Score:" + checkHighScore();
-                Toast.makeText(GameActivity.this,  "Game Over " + s, Toast.LENGTH_SHORT).show();
 
+                wordBank.setText("GAME OVER \n");
+                wordBank.append("Final Score:" + totalScore);
+                wordBank.append("Player Break a New Record:" + String.valueOf(checkHighScore()) + "\n");
 
             }
         }.start();
@@ -159,11 +163,6 @@ public class GameActivity extends AppCompatActivity {
         theCountDownTimer.cancel();
         timeRunning = false;
         //Code below may need to be modified for settings
-
-
-
-
-
 
 
 
