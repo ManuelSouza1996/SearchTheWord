@@ -7,9 +7,9 @@ public class Container {
     private int currentLevel;
 
     public Container(){
-        this.difficulty = 0;
+        this.difficulty = 1;
         this.totalScore = 0;
-        this.currentLevel = 0;
+        this.currentLevel = 1;
     }
 
     public int getTotalScore() {
