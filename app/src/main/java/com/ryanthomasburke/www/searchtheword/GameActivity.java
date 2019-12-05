@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.ryanthomasburke.www.searchtheword.Utility.Container;
 import com.ryanthomasburke.www.searchtheword.Utility.Word;
 import com.ryanthomasburke.www.searchtheword.Views.WordGrid;
 import java.io.BufferedReader;
@@ -36,6 +38,7 @@ public class GameActivity extends AppCompatActivity {
     private ArrayList<String[]> wordList = new ArrayList<>();
     private char[][] letterGrid;
     private boolean gameover = false;
+    Container container;
 
 
 
@@ -45,8 +48,14 @@ public class GameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-        wordFound = findViewById(R.id.wordFound);
-        wordFound.setText("");
+
+        // This creates a container that "clones"
+        // the container in Difficulty Activity.
+        // Just to check, there is a Sys.out...
+        // to verify it has correct data.
+        container = DifficultyActivity.container;
+        System.out.println("Dif: " + container.getDifficulty());
+
         wordGrid = findViewById(R.id.wordsGrid);
         wordBank = findViewById(R.id.wordBank);
         wordFound = findViewById(R.id.wordFound);
