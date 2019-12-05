@@ -57,6 +57,8 @@ public class GameActivity extends AppCompatActivity {
         System.out.println("Dif: " + container.getDifficulty());
 
         wordGrid = findViewById(R.id.wordsGrid);
+        wordBank = findViewById(R.id.wordBank);
+        wordFound = findViewById(R.id.wordFound);
         currentLevel = 1;
         difficulty = 1.0;
         numWords =5 + Math.min((int)Math.ceil(difficulty*currentLevel),5);
@@ -104,12 +106,11 @@ public class GameActivity extends AppCompatActivity {
                     updatePoints(pointsPerWord);  //adds score
                     addToTimer(4000);
 
-                    //cross off words
+
+
+
                     checkOffWord(string);
-                    //checks win conditions
-                   //String tempS = new String();
-                   //tempS = String.valueOf(playerWins());
-                  // Toast.makeText(GameActivity.this, tempS + " <--Did Player Win?", Toast.LENGTH_SHORT).show();
+
                 }
 
 
@@ -376,7 +377,6 @@ public class GameActivity extends AppCompatActivity {
                     counter++;
                     if (counter == wordIndex[i]) {
                         tmpWordList[i] = currentLine.toUpperCase();
-                        wordBank = findViewById(R.id.wordBank);
                         wordBank.append(currentLine.toUpperCase() + "\n");
                         String[] strAdd =new String[7];
 
@@ -415,8 +415,10 @@ public class GameActivity extends AppCompatActivity {
     }
 
 
-    //cross off a word once it's been found in the wordList
+    //cross off a word once it's been found in the wordList and remove from wordbank to add to wordFoundList
     private void checkOffWord(String inputWordFound){
+        wordBank.setText("");
+        wordFound.setText("");
         for (int i = 0;i < wordList.size(); i ++){
             if (wordList.get(i)[0].equals(inputWordFound)){
                 String[] tempInput = new String[7];
@@ -429,7 +431,20 @@ public class GameActivity extends AppCompatActivity {
                 tempInput[6] = "true";
                 wordList.set(i,tempInput);
             }
+
+            if (wordList.get(i)[6].equals("false")){
+                wordBank.append(wordList.get(i)[0].toString() + "\n");
+
+            }
+            else {
+                wordFound.append(wordList.get(i)[0].toString() + "\n");
+            }
+
+
+
         }
+
+
 
     }
 
