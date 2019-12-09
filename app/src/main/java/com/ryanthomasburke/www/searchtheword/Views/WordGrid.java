@@ -1,5 +1,10 @@
 package com.ryanthomasburke.www.searchtheword.Views;
 
+// Some of the logic in this class is loosely based on the
+// code of the projects listed below.
+// https://github.com/rjbasitali/word-search-custom-view-android
+// https://github.com/abdularis/Word-Search-Game
+
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;

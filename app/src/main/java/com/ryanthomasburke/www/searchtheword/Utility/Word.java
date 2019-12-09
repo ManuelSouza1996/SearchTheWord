@@ -1,5 +1,10 @@
 package com.ryanthomasburke.www.searchtheword.Utility;
 
+// Some of the logic in this class is loosely based on the
+// code of the projects listed below.
+// https://github.com/rjbasitali/word-search-custom-view-android
+// https://github.com/abdularis/Word-Search-Game
+
 public class Word {
 
     private String word;

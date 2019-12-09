@@ -1,6 +1,11 @@
 package com.ryanthomasburke.www.searchtheword;
 
 //Implementing timer Source: https://www.youtube.com/watch?v=MDuGwI6P-X8  +  https://codinginflow.com/tutorials/android/countdowntimer/part-1-countdown-timer
+// Some of the logic in this class is loosely based on the
+// code of the projects listed below.
+// https://github.com/rjbasitali/word-search-custom-view-android
+// https://github.com/abdularis/Word-Search-Game
+
 
 import android.content.Intent;
 import android.os.Bundle;
