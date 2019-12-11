@@ -25,6 +25,7 @@
         <activity android:name=".GameActivity"></activity>
         <activity android:name=".Highscores"></activity>
         <activity android:name=".InstructionsActivity"></activity>
+        <activity android:name=".Views.SettingsActivity"></activity>
     </application>
 
 </manifest>

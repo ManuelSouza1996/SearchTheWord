@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.ryanthomasburke.www.searchtheword.Views.SettingsActivity;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
@@ -79,6 +81,17 @@ public class MainActivity extends AppCompatActivity {
         }
         catch (Exception e){
             e.printStackTrace();
+        }
+    }
+
+    public void goToSettings(View view) {
+        try {
+            Intent intent = new Intent(this, SettingsActivity.class);
+            System.out.println(intent.toString());
+            this.startActivity(intent);
+        } catch (Exception e) {
+            e.printStackTrace();
+            setContentView(R.layout.activity_settings);
         }
     }
 

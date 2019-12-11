@@ -18,4 +18,9 @@
     <string name="textTimer">TIME REMAINING:</string>
     <string name="textScore">SCORE:</string>
     <string name="startingScore">0</string>
+    <string name="restart">Restart</string>
+    <string name="volume">Volume</string>
+    <string name="main_menu">Main Menu</string>
+    <string name="back_btn">Back</string>
+    <string name="settings">Settings</string>
 </resources>
