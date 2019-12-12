@@ -654,7 +654,7 @@ public class GameActivity extends AppCompatActivity {
                     }
                     if (strCount == wordlength) {
                         topRight= true;
-                        //  validChoice.add("topRight");
+                          validChoice.add("topRight");
                     }
                 }
 
@@ -673,7 +673,7 @@ public class GameActivity extends AppCompatActivity {
                     }
                     if (strCount == wordlength) {
                         topLeft= true;
-                        //   validChoice.add("topLeft");
+                           validChoice.add("topLeft");
                     }
                 }
             }
@@ -692,7 +692,7 @@ public class GameActivity extends AppCompatActivity {
                     }
                     if (strCount == wordlength) {
                         bottomRight= true;
-                        // validChoice.add("bottomRight");
+                        validChoice.add("bottomRight");
                     }
                 }
 
@@ -710,7 +710,7 @@ public class GameActivity extends AppCompatActivity {
                     }
                     if (strCount == wordlength) {
                         bottomLeft= true;
-                        // validChoice.add("bottomLeft");
+                        validChoice.add("bottomLeft");
                     }
                 }
 
