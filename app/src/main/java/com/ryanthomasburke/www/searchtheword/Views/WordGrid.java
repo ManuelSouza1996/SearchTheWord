@@ -1,3 +1,6 @@
+// written by: Ryan (Most of the work),  Jesse (added the function reverse String) and tweaked a few line of codes to fix bug of words not being highlighted backwords.
+// tested by:// Ryan, Jesse, Antonia, Manny, Lo
+// debugged by: Jesse
 package com.ryanthomasburke.www.searchtheword.Views;
 
 // Some of the logic in this class is loosely based on the

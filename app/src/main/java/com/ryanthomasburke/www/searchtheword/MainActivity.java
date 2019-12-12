@@ -1,3 +1,9 @@
+//written by: Antonia created the original File as part of the GUI.
+//Ryan added the additional buttons to go to different activities.java files.
+//Jesse added create high score files to initially create an internal file for high score for the game
+// tested by:// Everyone via play the game
+// debugged by: Jesse
+
 package com.ryanthomasburke.www.searchtheword;
 
 import androidx.appcompat.app.AppCompatActivity;

@@ -1,3 +1,7 @@
+//written by: Ryan
+// tested by:// Everyone via play the game
+// debugged by: N/A
+
 package com.ryanthomasburke.www.searchtheword;
 
 import android.os.Bundle;

@@ -1,3 +1,7 @@
+//written by: Ryan
+// tested by:// Everyone via play the game
+// debugged by: N/A
+
 package com.ryanthomasburke.www.searchtheword.Utility;
 
 // Some of the logic in this class is loosely based on the

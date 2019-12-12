@@ -1,3 +1,9 @@
+// written by: Antonia created the original file when creating the GUI.
+// Ryan created all the functions
+//Jesse created created the 2 test function to get proper reads and write to internal files. Added a few lines to Ryan's code to read from internal files instead of Asset files.
+// tested by:// Everyone via play the game
+// debugged by: Jesse
+
 package com.ryanthomasburke.www.searchtheword;
 
 import android.os.Bundle;

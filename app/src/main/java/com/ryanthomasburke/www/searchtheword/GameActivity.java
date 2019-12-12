@@ -1,3 +1,10 @@
+
+// written by: Antonia created the original file,
+// Ryan created the word grid and the event handler for the wordgrid for highlight word event, he also originally had a sample code to display a static word game with a few working static words. Ryan also started container code and left code example to be adopted.
+//Jesse created get word from file, put word in wordgrid, timer, scores, and added to the listner ryan created to handle the win lose game over conditions. Created remaining code in file.
+// tested by:// Everyone via play the game
+// debugged by: Jesse
+
 package com.ryanthomasburke.www.searchtheword;
 
 //Implementing timer Source: https://www.youtube.com/watch?v=MDuGwI6P-X8  +  https://codinginflow.com/tutorials/android/countdowntimer/part-1-countdown-timer

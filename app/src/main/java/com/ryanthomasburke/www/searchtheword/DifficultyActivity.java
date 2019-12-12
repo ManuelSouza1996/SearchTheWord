@@ -1,3 +1,7 @@
+// written by: Antonia(created the file and easy button, Ryan created the container and sample code for easy container. Jesse Recopied code to create the medium and hard buttons.
+// tested by:// All
+// debugged by: N/A worked out just fine
+
 package com.ryanthomasburke.www.searchtheword;
 
 import android.os.Bundle;
